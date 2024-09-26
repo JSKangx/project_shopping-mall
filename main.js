@@ -10,13 +10,15 @@ selectNode.addEventListener("click", () => {
   // 옵션 중 선택된 노드 얻기
   let selectedOptions = selectNode.selectedOptions;
   let tunas = "";
+  let sumPrice = 0;
 
   if (resultNode.innerHTML) {
     resultNode.innerHTML = "";
   }
   // 화면에 출력하기
   for (let i = 0; i < selectedOptions.length; i++) {
-    tunas += `<li>${selectedOptions[i].value}</li>`;
+    tunas += `<li>${selectedOptions[i].innerHTML}</li>`;
+    sumPrice += parseInt(selectedOptions[i].value);
   }
 
   let list = document.createElement("ul");
@@ -26,6 +28,12 @@ selectNode.addEventListener("click", () => {
   let h3 = document.createElement("h3");
   h3.appendChild(document.createTextNode("선택한 상품"));
 
+  let span = document.createElement("span");
+  span.innerHTML = sumPrice;
+  let h4 = document.createElement("h4");
+  h4.innerHTML = `총액 : ${span.innerHTML}`;
+
   resultNode.appendChild(h3);
   resultNode.appendChild(list);
+  resultNode.appendChild(h4);
 });
