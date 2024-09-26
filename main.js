@@ -37,3 +37,12 @@ selectNode.addEventListener("click", () => {
   resultNode.appendChild(list);
   resultNode.appendChild(h4);
 });
+
+// 결제하는 함수
+function purchase() {
+  if (selectNode.selectedOptions.length === 0) {
+    alert("결제할 상품을 선택해야 합니다.");
+  } else {
+    console.log(selectNode.selectedOptions);
+  }
+}
