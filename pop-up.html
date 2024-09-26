@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>결제창</h3>
+    <div id="confirmMsg"></div>
+    <input id="input" type="text" />
+    <button type="button" onclick="purchase()">결제하기</button>
+
+    <script>
+      let msgNode = document.getElementById("confirmMsg");
+      msgNode.innerHTML = `${sumPrice}원을 결제하겠습니다. <br /> 신용카드 번호를 입력하고 결제 버튼을 눌러주세요.`;
+
+      function purchase() {
+        let inputNode = document.getElementById("input");
+        let creditCardNo = inputNode.value;
+        opener.child = { creditCardNo: creditCardNo };
+        opener.confirm();
+        window.close();
+      }
+    </script>
+  </body>
+</html>

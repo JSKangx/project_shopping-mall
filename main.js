@@ -5,12 +5,14 @@ let optionsNode = document.querySelectorAll("option[selected]");
 let selectNode = document.getElementById("select");
 let resultNode = document.getElementById("result");
 
+// 총액 초기 값
+let sumPrice = 0;
+
 // 선택된 옵션의 값을 얻는 함수
 selectNode.addEventListener("click", () => {
   // 옵션 중 선택된 노드 얻기
   let selectedOptions = selectNode.selectedOptions;
   let tunas = "";
-  let sumPrice = 0;
 
   if (resultNode.innerHTML) {
     resultNode.innerHTML = "";
@@ -43,6 +45,11 @@ function purchase() {
   if (selectNode.selectedOptions.length === 0) {
     alert("결제할 상품을 선택해야 합니다.");
   } else {
-    console.log(selectNode.selectedOptions);
+    let childWindow = window.open("pop-up.html", "_blank", "left=100, top=100, width=300, height=300");
+    childWindow.sumPrice = sumPrice;
   }
+}
+
+function confirm() {
+  alert(`${child.creditCardNo}로 ${sumPrice}원이 결제 완료되었습니다.`);
 }
