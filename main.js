@@ -1,9 +1,33 @@
 "use strict";
 
+// 품목 및 가격 생성자 함수 정의
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+// prettier-ignore
+let products = [
+  new Product('대뱃살', 3000),
+  new Product('목살', 5000),
+  new Product('배꼽살', 4000),
+  new Product('중뱃살', 1000),
+]
+
 // DOM 노드 획득
 let optionsNode = document.querySelectorAll("option[selected]");
 let selectNode = document.getElementById("select");
 let resultNode = document.getElementById("result");
+
+// selectNode 내의 노드를 생성
+window.addEventListener("load", () => {
+  products.forEach((product) => {
+    let option = document.createElement("option");
+    option.setAttribute("value", `${product.price}`);
+    option.appendChild(document.createTextNode(`${product.name} - ${product.price}`));
+    selectNode.appendChild(option);
+  });
+});
 
 // 총액 초기 값
 let sumPrice = 0;
@@ -16,11 +40,13 @@ selectNode.addEventListener("click", () => {
 
   if (resultNode.innerHTML) {
     resultNode.innerHTML = "";
+    sumPrice = 0;
   }
   // 화면에 출력하기
   for (let i = 0; i < selectedOptions.length; i++) {
     tunas += `<li>${selectedOptions[i].innerHTML}</li>`;
     sumPrice += parseInt(selectedOptions[i].value);
+    // console.log(selectedOptions.child);
   }
 
   let list = document.createElement("ul");
