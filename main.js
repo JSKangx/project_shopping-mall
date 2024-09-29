@@ -6,6 +6,7 @@ function Product(name, price) {
   this.price = price;
 }
 
+// 품목 생성
 // prettier-ignore
 let products = [
   new Product('대뱃살', 3000),
@@ -15,7 +16,6 @@ let products = [
 ]
 
 // DOM 노드 획득
-let optionsNode = document.querySelectorAll("option[selected]");
 let selectNode = document.getElementById("select");
 let resultNode = document.getElementById("result");
 
@@ -36,17 +36,17 @@ let sumPrice = 0;
 selectNode.addEventListener("click", () => {
   // 옵션 중 선택된 노드 얻기
   let selectedOptions = selectNode.selectedOptions;
-  let tunas = "";
 
   if (resultNode.innerHTML) {
     resultNode.innerHTML = "";
     sumPrice = 0;
   }
+
+  let tunas = "";
   // 화면에 출력하기
   for (let i = 0; i < selectedOptions.length; i++) {
     tunas += `<li>${selectedOptions[i].innerHTML}</li>`;
     sumPrice += parseInt(selectedOptions[i].value);
-    // console.log(selectedOptions.child);
   }
 
   let list = document.createElement("ul");
@@ -78,4 +78,5 @@ function purchase() {
 
 function confirm() {
   alert(`${child.creditCardNo}로 ${sumPrice}원이 결제 완료되었습니다.`);
+  resultNode.innerHTML = "";
 }
