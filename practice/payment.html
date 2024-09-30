@@ -11,9 +11,69 @@
       <p><span id="price"></span>원을 결제하겠습니다.</p>
       <p>신용카드 번호를 입력하고 결제 버튼을 눌러주세요.</p>
     </div>
-    <input id="input" type="text" />
+    <div class="card-input">
+      <input
+        id="card1"
+        type="text"
+        maxlength="4"
+        oninput="moveToNext(this, 'card2')"
+        style="width: 60px"
+      />
+      <input
+        id="card2"
+        type="text"
+        maxlength="4"
+        oninput="moveToNext(this, 'card3')"
+        style="width: 60px"
+      />
+      <input
+        id="card3"
+        type="text"
+        maxlength="4"
+        oninput="moveToNext(this, 'card4')"
+        style="width: 60px"
+      />
+      <input id="card4" type="text" maxlength="4" style="width: 60px" />
+    </div>
     <button type="button" onclick="sendPG()">결제하기</button>
+    <button onclick="console()">console</button>
 
-    <script></script>
+    <script>
+      // input에 입력이 될 때마다 이 함수가 실행된다.
+      function moveToNext(current, nextFieldId) {
+        // 입력값의 길이가 해당칸의 최대 길이와 같아진다면
+        if (current.value.length === current.maxLength) {
+          // focus를 'nextFieldId'가 있는 칸으로 옮겨줘
+          document.getElementById(nextFieldId).focus();
+        }
+      }
+
+      let totalPrice = opener.sendPrice();
+      document.getElementById("price").innerHTML = totalPrice;
+
+      let card1 = document.getElementById("card1");
+      let card2 = document.getElementById("card2");
+      let card3 = document.getElementById("card3");
+      let card4 = document.getElementById("card4");
+
+      function sendPG() {
+        if (
+          card1.value.length === 4 &&
+          card2.value.length === 4 &&
+          card3.value.length === 4 &&
+          card4.value.length === 4
+        ) {
+          opener.paymentSuccess(
+            card1.value,
+            card2.value,
+            card3.value,
+            card4.value
+          );
+          window.close();
+        } else {
+          alert("올바른 카드 번호를 입력하세요");
+        }
+      }
+    </script>
   </body>
 </html>

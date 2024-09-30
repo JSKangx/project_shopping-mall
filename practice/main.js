@@ -56,5 +56,20 @@ selectNode.addEventListener("change", (e) => {
   }
 });
 
+// payment 창에서 paymentPrice에 직접 접근하지 않고, 이 함수에 접근하여 paymentPrice값을 얻어가도록 함(유지보수 측면)
+function sendPrice() {
+  return paymentPrice;
+}
+
 // 결제 버튼을 눌렀을 때 실행될 함수
-function payment() {}
+function payment() {
+  if (paymentPrice === 0) {
+    alert("결제할 상품을 선택해야 합니다.");
+  } else {
+    window.open("payment.html", "_blank", "left=100, top=100, width=500, height=300");
+  }
+}
+
+function paymentSuccess(card1, card2, card3, card4) {
+  alert(`${card1} - ${card2} - ${card3} - ${card4}로 ${paymentPrice}원을 결제합니다.`);
+}
