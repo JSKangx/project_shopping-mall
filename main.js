@@ -19,6 +19,9 @@ let products = [
 let selectNode = document.getElementById("select");
 let resultNode = document.getElementById("result");
 
+selectNode.addEventListener("change", (e) => {
+  console.log(e.target.selectedOptions);
+});
 // selectNode 내의 노드를 생성
 window.addEventListener("load", () => {
   products.forEach((product) => {
@@ -30,7 +33,7 @@ window.addEventListener("load", () => {
 });
 
 // 총액 초기 값
-let sumPrice = 0;
+let totalPrice = 0;
 
 // 선택된 옵션의 값을 얻는 함수
 selectNode.addEventListener("click", () => {
@@ -39,15 +42,15 @@ selectNode.addEventListener("click", () => {
 
   if (resultNode.innerHTML) {
     resultNode.innerHTML = "";
-    sumPrice = 0;
+    totalPrice = 0;
   }
 
   let tunas = "";
-  // 화면에 출력하기
   for (let i = 0; i < selectedOptions.length; i++) {
     tunas += `<li>${selectedOptions[i].innerHTML}</li>`;
-    sumPrice += parseInt(selectedOptions[i].value);
+    totalPrice += parseInt(selectedOptions[i].value);
   }
+  // 화면에 출력하기
 
   let list = document.createElement("ul");
   list.setAttribute("class", "list");
@@ -57,7 +60,7 @@ selectNode.addEventListener("click", () => {
   h3.appendChild(document.createTextNode("선택한 상품"));
 
   let span = document.createElement("span");
-  span.innerHTML = sumPrice;
+  span.innerHTML = totalPrice;
   let h4 = document.createElement("h4");
   h4.innerHTML = `총액 : ${span.innerHTML}`;
 
@@ -68,15 +71,19 @@ selectNode.addEventListener("click", () => {
 
 // 결제하는 함수
 function purchase() {
-  if (selectNode.selectedOptions.length === 0) {
+  if (totalPrice === 0) {
     alert("결제할 상품을 선택해야 합니다.");
   } else {
-    let childWindow = window.open("pop-up.html", "_blank", "left=100, top=100, width=300, height=300");
-    childWindow.sumPrice = sumPrice;
+    window.open("pop-up.html", "_blank", "left=100, top=100, width=300, height=300");
   }
 }
 
-function confirm() {
-  alert(`${child.creditCardNo}로 ${sumPrice}원이 결제 완료되었습니다.`);
+// totalPrice를 자식 창에서 변수 그대로 이용하기보다, 함수에 접근해 그 값을 얻어가는 방식이 유지보수에 더 좋다.
+function getTotalPrice() {
+  return totalPrice;
+}
+
+function confirm(cardNo) {
+  alert(`${cardNo}로 ${totalPrice}원이 결제 완료되었습니다.`);
   resultNode.innerHTML = "";
 }

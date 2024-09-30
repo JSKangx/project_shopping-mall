@@ -7,19 +7,21 @@
   </head>
   <body>
     <h3>결제창</h3>
-    <div id="confirmMsg"></div>
+    <div id="confirmMsg">
+      <p><span id="totalPrice"></span>원을 결제하겠습니다.</p>
+      <p>신용카드 번호를 입력하고 결제 버튼을 눌러주세요.</p>
+    </div>
     <input id="input" type="text" />
     <button type="button" onclick="purchase()">결제하기</button>
 
     <script>
-      let msgNode = document.getElementById("confirmMsg");
-      msgNode.innerHTML = `${sumPrice}원을 결제하겠습니다. <br /> 신용카드 번호를 입력하고 결제 버튼을 눌러주세요.`;
+      // 부모 창에서 totalPrice 가져오기
+      let totalPrice = opener.getTotalPrice();
+      let spanNode = document.getElementById("totalPrice");
+      spanNode.innerHTML = totalPrice;
 
       function purchase() {
-        let inputNode = document.getElementById("input");
-        let creditCardNo = inputNode.value;
-        opener.child = { creditCardNo: creditCardNo };
-        opener.confirm();
+        opener.confirm(document.getElementById("input").value);
         window.close();
       }
     </script>
