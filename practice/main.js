@@ -53,6 +53,7 @@ selectNode.addEventListener("change", (e) => {
     resultNode.innerHTML = resultTxt;
   } else {
     resultNode.innerHTML = "";
+    paymentPrice = 0;
   }
 });
 
